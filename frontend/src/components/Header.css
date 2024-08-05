@@ -1,0 +1,72 @@
+/* src/components/Header.css */
+
+.header {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 20px; /* Increase padding to make the header taller */
+  background-color: #f8f9fa;
+  width: 100%; /* Ensure it takes the full width of the screen */
+  box-sizing: border-box; /* Include padding in width calculation */
+}
+
+.logo {
+  flex: 1;
+  margin-right: 20px; /* Add margin to the right */
+}
+
+.logo-img {
+  max-width: 100%;
+  height: auto; /* Maintain aspect ratio */
+}
+
+.header-right {
+  display: flex;
+  align-items: center;
+}
+
+.search-bar {
+  display: flex;
+  align-items: center;
+  margin-right: 20px;
+  width: 300px; /* Set a specific width for the search bar */
+}
+
+.search-bar input {
+  flex: 1;
+  padding: 10px; /* Increase padding for wider appearance */
+  border: 1px solid #ced4da;
+  border-radius: 4px;
+  margin-right: 5px; /* Margin between input and button */
+}
+
+.search-bar button {
+  padding: 10px 15px; /* Increase padding for better size */
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.search-bar button:hover {
+  background-color: #0056b3;
+}
+
+.user-login {
+  display: flex;
+  align-items: center;
+}
+
+.user-icon {
+  font-size: 28px; /* Increase icon size to fit the taller header */
+  margin-right: 10px;
+}
+
+.login-register {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: bold;
+  cursor: pointer;
+  font-size: 16px; /* Adjust font size for better appearance */
+}
