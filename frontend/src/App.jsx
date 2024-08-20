@@ -5,6 +5,9 @@ import Home from './pages/Home';
 import CarListing from './pages/CarListing';
 import CarDetails from './pages/CarDetail';
 import About from './pages/About';
+import Login from './pages/Login';
+import Signup from './pages/Signup'
+import CartPage from './components/CartPage';
 
 
 
@@ -13,9 +16,13 @@ const App = () => {
     <Router>
       <Routes>
         <Route path="/" element={<Home />} />
+        <Route path="/login" element={<Login />} />
+        <Route path="/cart" element={<CartPage />} />
+        <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/CarDetail" element={<CarDetails />} />
         <Route path="/CarListing" element={<CarListing />} />
+        <Route path="/cars/:id" element={<CarDetails />} />
       </Routes>
     </Router>
   );

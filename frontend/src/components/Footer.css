@@ -4,14 +4,14 @@
 }
 
 .footer-section {
- margin: 25px 200px
+  margin: 25px 100px; /* left and right margins */
 }
 
 .row {
   display: flex;
   flex-wrap: wrap;
   justify-content: space-between;
-  width: 100%
+  width: 100%;
 }
 
 .column {
@@ -54,7 +54,8 @@
   width: 100px;
   margin: 10px 0;
 }
-
+ /* for small screen */
+ 
 @media (max-width: 768px) {
   .column {
     flex: 1 1 100%;
@@ -66,6 +67,40 @@
   }
 }
 
-.display{
-  display: flex;
+@media (max-width: 720px) {
+  .footer-section {
+    margin: 25px 50px; /* Further reduce left and right margins */
+  }
+
+  .row {
+    justify-content: space-around; /* Adjust spacing to better fit content */
+  }
+
+  .column {
+    flex: 1 1 100%;
+    margin: 5px; /* Reduced margin for columns */
+  }
+
+  .app-column {
+    width: 100%;
+  }
 }
+
+.display {
+  display: flex;
+  align-items: center; /* Vertically align the items */
+  justify-content: space-between; /* Distribute space between items */
+}
+
+.display div {
+  margin-right: 20px; /* Add margin between the images */
+}
+
+.display div:last-child {
+  margin-right: 0; /* Remove the margin for the last item */
+}
+
+.display img {
+  vertical-align: middle; /* Vertically align the images */
+}
+

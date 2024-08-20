@@ -1,11 +1,13 @@
 import React from 'react';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa'; // Importing user icon from Font Awesome
-import { MdSearch } from 'react-icons/md'; // Importing search icon from Material Design
+import { FaUserCircle, FaShoppingCart } from 'react-icons/fa';
+import { MdSearch } from 'react-icons/md';
 import '../components/Header.css';
+import { useSelector } from 'react-redux'; // Import useSelector
 
 const Header = () => {
   const navigate = useNavigate();
+  const cartCount = useSelector((state) => state.car.cart.size); // Access cart size from Redux
 
   const handleLoginClick = () => {
     navigate('/login');
@@ -13,6 +15,10 @@ const Header = () => {
 
   const handleHomeClick = () => {
     navigate('/');
+  };
+
+  const handleCartClick = () => {
+    navigate('/cart'); // Navigate to cart page
   };
 
   return (
@@ -28,10 +34,10 @@ const Header = () => {
       <div className="header-right">
         <div className="search-bar">
           <input type="text" placeholder="Search..." />
-          <button><MdSearch /></button> {/* Using search icon */}
+          <button ><MdSearch size={24} /></button> 
         </div>
         <div className="user-login">
-          <FaUserCircle className="user-icon" /> {/* Using user icon */}
+          <FaUserCircle className="user-icon" />
           <span 
             onClick={handleLoginClick} 
             className="login-register" 
@@ -39,6 +45,12 @@ const Header = () => {
           >
             Login / Register
           </span>
+          <div className="cart-container" onClick={handleCartClick}>
+            <FaShoppingCart className="cart-icon" />
+            {cartCount > 0 && (
+              <span className="cart-count">{cartCount}</span>
+            )}
+          </div>
         </div>
       </div>
     </div>
