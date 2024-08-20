@@ -2,6 +2,7 @@
 
 .header {
   display: flex;
+  position: sticky;
   justify-content: space-between;
   align-items: center;
   padding: 20px 20px; /* Increase padding to make the header taller */
@@ -23,6 +24,8 @@
 .header-right {
   display: flex;
   align-items: center;
+  flex: 1;
+  justify-content: center; /* Center the content horizontally */
 }
 
 .search-bar {
@@ -38,6 +41,7 @@
   border: 1px solid #ced4da;
   border-radius: 4px;
   margin-right: 5px; /* Margin between input and button */
+  align-items: center;
 }
 
 .search-bar button {

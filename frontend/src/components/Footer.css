@@ -1,0 +1,71 @@
+.footer-container {
+  background-color: #f8f9fa;
+  padding: 20px;
+}
+
+.footer-section {
+ margin: 25px 200px
+}
+
+.row {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: space-between;
+  width: 100%
+}
+
+.column {
+  flex: 1 1 22%;
+  margin: 10px;
+}
+
+.title {
+  font-weight: bold;
+  margin-bottom: 10px;
+}
+
+.footer-links div {
+  margin-bottom: 5px;
+}
+
+.footer-links a {
+  text-decoration: none;
+  color: #007bff;
+}
+
+.footer-links a:hover {
+  text-decoration: underline;
+}
+
+.app-holder {
+  display: flex;
+  justify-content: space-between;
+}
+
+.app-column {
+  width: 48%;
+}
+
+.app-column img {
+  width: 100%;
+}
+
+.ventures img {
+  width: 100px;
+  margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+  .column {
+    flex: 1 1 100%;
+  }
+
+  .app-column {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+}
+
+.display{
+  display: flex;
+}
