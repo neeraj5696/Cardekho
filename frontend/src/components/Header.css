@@ -1,14 +1,24 @@
+/* Header.css */
+
 .header {
   display: flex;
-  align-items: center;
   justify-content: space-between;
-  padding: 10px;
-  background-color: #fff;
-  box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+  align-items: center;
+  background-color: #f8f9fa;
+  padding: 15px 30px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  border-bottom: 1px solid #e0e0e0;
+}
+
+.logo {
+  display: flex;
+  align-items: center;
+  cursor: pointer;
 }
 
 .logo-img {
-  height: 40px;
+  height: 50px;
+  width: auto;
 }
 
 .header-right {
@@ -17,23 +27,33 @@
 }
 
 .search-bar {
+  position: relative;
   display: flex;
   align-items: center;
-  margin-right: 20px;
+  margin-right: 25px;
 }
 
 .search-bar input {
-  padding: 10px;
-  border-radius: 4px;
-  border: 1px solid #ddd;
+  padding: 10px 15px;
+  border: 1px solid #ced4da;
+  border-radius: 25px;
   font-size: 16px;
+  width: 250px;
+  transition: all 0.3s ease;
+  outline: none;
+}
+
+.search-bar input:focus {
+  border-color: #007bff;
+  box-shadow: 0 0 5px rgba(0, 123, 255, 0.25);
 }
 
 .search-bar button {
-  background-color: transparent;
+  position: absolute;
+  right: 10px;
+  background: transparent;
   border: none;
   cursor: pointer;
-  margin-left: -35px;
 }
 
 .user-login {
@@ -42,32 +62,53 @@
 }
 
 .user-icon {
-  font-size: 24px;
-  margin-right: 10px;
+  font-size: 28px;
+  color: #495057;
+  margin-right: 20px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.user-icon:hover {
+  color: #007bff;
 }
 
 .login-register {
-  margin-right: 20px;
+  font-size: 18px;
+  color: #007bff;
+  margin-right: 30px;
+  cursor: pointer;
+  transition: color 0.3s ease;
+}
+
+.login-register:hover {
+  color: #0056b3;
 }
 
 .cart-container {
-  position: relative;
   display: flex;
   align-items: center;
+  position: relative;
   cursor: pointer;
 }
 
 .cart-icon {
-  font-size: 24px;
+  font-size: 28px;
+  color: #495057;
 }
 
 .cart-count {
   position: absolute;
-  top: -8px;
-  right: -10px;
-  background-color: red;
-  color: #fff;
+  top: -5px;
+  right: -5px;
+  background-color: #ff5733;
+  color: white;
   border-radius: 50%;
-  padding: 2px 6px;
-  font-size: 12px;
+  width: 22px;
+  height: 22px;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 14px;
+  font-weight: bold;
 }

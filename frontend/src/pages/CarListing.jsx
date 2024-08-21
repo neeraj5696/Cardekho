@@ -1,19 +1,19 @@
 import React, { useState, useEffect } from "react";
 import axios from "axios";
 import { FaShoppingCart, FaCartPlus } from "react-icons/fa";
-import { useDispatch } from "react-redux"; // Redux dispatch for car details
-import { setSelectedCar } from "../Redux/carSlice"; // Redux action for setting the selected car
-import { useNavigate } from "react-router-dom"; // React Router for navigating to details page
+import { useDispatch, useSelector } from "react-redux";
+import { setSelectedCar, setAllCars, addToCart, removeFromCart } from "../Redux/carSlice";
+import { useNavigate } from "react-router-dom";
 import "../pages/CarListing.css";
 
 function CarCatalog() {
   const [cars, setCars] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  const [cart, setCart] = useState(new Set());
   const [page, setPage] = useState(0); // State to track the current page
   const dispatch = useDispatch(); // Redux dispatch
   const navigate = useNavigate(); // React Router navigate
+  const cart = useSelector((state) => state.car.cart); // Get cart from Redux store
 
   useEffect(() => {
     const fetchCars = async () => {
@@ -25,8 +25,7 @@ function CarCatalog() {
           page: page.toString(), // Dynamic page
         },
         headers: {
-         "x-rapidapi-key":
-            "5a9d7e4273msh022af9bb82c5702p149b2cjsnace467de972c",
+          "x-rapidapi-key": "5a9d7e4273msh022af9bb82c5702p149b2cjsnace467de972c",
           "x-rapidapi-host": "car-data.p.rapidapi.com",
         },
       };
@@ -34,6 +33,7 @@ function CarCatalog() {
       try {
         const response = await axios.request(options);
         setCars((prevCars) => [...prevCars, ...response.data]); // Append new data to the list
+        dispatch(setAllCars(response.data)); // Dispatch all car data to Redux store for search functionality
       } catch (error) {
         setError(error);
       } finally {
@@ -42,18 +42,14 @@ function CarCatalog() {
     };
 
     fetchCars();
-  }, [page]); // Fetch data when page changes
+  }, [page, dispatch]); // Fetch data when page changes
 
   const handleAddToCart = (carId) => {
-    setCart((prev) => {
-      const updated = new Set(prev);
-      if (updated.has(carId)) {
-        updated.delete(carId); // Remove car if already in the cart
-      } else {
-        updated.add(carId); // Add car to the cart
-      }
-      return updated;
-    });
+    if (cart.includes(carId)) {
+      dispatch(removeFromCart(carId)); // Remove from cart
+    } else {
+      dispatch(addToCart(carId)); // Add to cart
+    }
   };
 
   const handleCarClick = (car) => {
@@ -75,18 +71,18 @@ function CarCatalog() {
         {cars.map((car) => (
           <div
             key={car.id}
-            className={`catalog-item ${cart.has(car.id) ? "in-cart" : ""}`}
+            className={`catalog-item ${cart.includes(car.id) ? "in-cart" : ""}`}
             onClick={() => handleCarClick(car)} // Handle car click
           >
             <div className="catalog-image">
               <button
-                className={`cart-btn ${cart.has(car.id) ? "in-cart" : ""}`}
+                className={`cart-btn ${cart.includes(car.id) ? "in-cart" : ""}`}
                 onClick={(e) => {
                   e.stopPropagation(); // Prevent click from triggering car details
                   handleAddToCart(car.id);
                 }}
               >
-                {cart.has(car.id) ? (
+                {cart.includes(car.id) ? (
                   <>
                     <FaShoppingCart /> In Cart
                   </>

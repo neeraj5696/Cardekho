@@ -8,6 +8,7 @@ import About from './pages/About';
 import Login from './pages/Login';
 import Signup from './pages/Signup'
 import CartPage from './components/CartPage';
+import SearchResults from './pages/SearchResults';
 
 
 
@@ -21,6 +22,7 @@ const App = () => {
         <Route path="/signup" element={<Signup />} />
         <Route path="/about" element={<About />} />
         <Route path="/CarDetail" element={<CarDetails />} />
+        <Route path="/search-results" element={<SearchResults />} />
         <Route path="/CarListing" element={<CarListing />} />
         <Route path="/cars/:id" element={<CarDetails />} />
       </Routes>

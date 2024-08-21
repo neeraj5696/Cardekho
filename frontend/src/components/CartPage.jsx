@@ -1,42 +1,45 @@
 import React from 'react';
-import { useSelector } from 'react-redux';
-import { useNavigate } from 'react-router-dom';
-import '../components/CartPage.css'; // Ensure you have a corresponding CSS file
+import { useSelector, useDispatch } from 'react-redux';
+import { FaTrashAlt } from 'react-icons/fa';
+import { removeFromCart } from '../Redux/carSlice';
+import '../components/CartPage.css'; // Ensure this path is correct
 
-const CartPage = () => {
+const Cart = () => {
+  const dispatch = useDispatch();
   const cart = useSelector((state) => state.car.cart);
-  const cars = useSelector((state) => state.car.cars); // Assuming you have the full car data in the store
-  const navigate = useNavigate();
+  const cars = useSelector((state) => state.car.cars); // Access all cars to display details
 
-  const cartItems = cars.filter((car) => cart.has(car.id));
+  // Find car details based on cart items
+  const cartItems = cars.filter((car) => cart.includes(car.id));
 
-  const handleBackClick = () => {
-    navigate('/');
+  const handleRemoveFromCart = (carId) => {
+    dispatch(removeFromCart(carId)); // Remove item from cart
   };
 
   return (
     <div className="cart-page">
-      <h1>Shopping Cart</h1>
-      <button className="back-btn" onClick={handleBackClick}>Back to Catalog</button>
-      <div className="cart-items">
-        {cartItems.length > 0 ? (
+      <h1 className="cart-title">Shopping Cart</h1>
+      <div className="cart-items-container">
+        {cartItems.length === 0 ? (
+          <p className="empty-cart-message">Your cart is empty.</p>
+        ) : (
           cartItems.map((car) => (
-            <div key={car.id} className="cart-item">
-              <div className="cart-image">
-                <img src={car.image || 'https://via.placeholder.com/150'} alt={car.make} />
+            <div key={car.id} className="cart-item-card">
+              <div className="cart-item-details">
+                <h2 className="cart-item-title">{car.make} {car.model}</h2>
+                <p className="cart-item-year">Year: {car.year}</p>
+                <p className="cart-item-type">Type: {car.type}</p>
+                <p className="cart-item-description">Description: {car.description || 'No description available'}</p>
               </div>
-              <div className="cart-details">
-                <h2>{car.make} {car.model}</h2>
-                <p>{car.year}</p>
-              </div>
+              <button className="remove-from-cart-btn" onClick={() => handleRemoveFromCart(car.id)}>
+                <FaTrashAlt /> Remove
+              </button>
             </div>
           ))
-        ) : (
-          <p>Your cart is empty.</p>
         )}
       </div>
     </div>
   );
 };
 
-export default CartPage;
+export default Cart;
