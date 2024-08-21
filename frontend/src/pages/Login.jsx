@@ -1,7 +1,8 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
 import { MdMovie } from "react-icons/md";
-import axios from "axios";
+import { signInWithEmailAndPassword } from "firebase/auth";
+import { auth } from "../../utils/firebase"; // Ensure Firebase is properly configured here
 import "../pages/auth.css";
 
 function Login() {
@@ -13,14 +14,10 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      const res = await axios.post("http://localhost:5000/api/auth/login", {
-        email,
-        password,
-      });
-      localStorage.setItem("token", res.data.token);
+      await signInWithEmailAndPassword(auth, email, password);
       setMessage("User logged in successfully");
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/");
       }, 2000);
     } catch (error) {
       console.error("Error occurred", error);
@@ -59,7 +56,11 @@ function Login() {
         <div className="bottom-container">
           <div className="account-message">Don't have an account?</div>
           <div>
-            <button className="redirect-button" onClick={() => navigate("/signup")} type="button">
+            <button
+              className="redirect-button"
+              onClick={() => navigate("/signup")}
+              type="button"
+            >
               Signup
             </button>
           </div>
