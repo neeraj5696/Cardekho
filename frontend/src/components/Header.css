@@ -112,3 +112,74 @@
   font-size: 14px;
   font-weight: bold;
 }
+
+
+/* Mobile-first styles */
+@media (max-width: 768px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .header-right {
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .search-bar {
+    width: 100%;
+    margin-bottom: 10px;
+  }
+
+  .search-bar input {
+    width: 100%;
+    box-sizing: border-box;
+    margin: 16px;
+  }
+
+  .user-login {
+    width: 100%;
+    display: block;
+  }
+
+  .user-login .login-register,
+  .cart-container {
+    display: block;
+    margin-bottom: 10px;
+  }
+
+  .cart-container {
+    margin-left: 0;
+  }
+
+  .user-icon, .cart-icon {
+    font-size: 20px;
+  }
+
+  .login-register {
+    font-size: 18px;
+    cursor: pointer;
+  }
+}
+
+/* For even smaller screens */
+@media (max-width: 480px) {
+  .header {
+    padding: 10px;
+  }
+
+  .user-icon, .cart-icon {
+    font-size: 18px;
+  }
+
+  .login-register {
+    font-size: 16px;
+  }
+
+  .search-bar input {
+    font-size: 14px;
+    margin: 16px;
+  }
+}
