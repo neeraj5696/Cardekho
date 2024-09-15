@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdMovie } from "react-icons/md";
-import { signInWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../utils/firebase"; // Ensure Firebase is properly configured here
+import { FaCar } from "react-icons/fa6";
+import axios from "axios";
 import "../pages/auth.css";
 
 function Login() {
@@ -14,7 +13,11 @@ function Login() {
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
-      await signInWithEmailAndPassword(auth, email, password);
+      const res = await axios.post("http://localhost:3000/api/auth/login", {
+        email,
+        password,
+      });
+      localStorage.setItem("token", res.data.token);
       setMessage("User logged in successfully");
       setTimeout(() => {
         navigate("/");
@@ -27,10 +30,12 @@ function Login() {
 
   return (
     <div className="form-container">
-      {message && <div className="message">{message}</div>}
+     
       <form onSubmit={handleSubmit} className="form">
+      {message && <div className="message">{message}</div>}
         <div className="movie-icon">
-          <MdMovie />
+        <FaCar />
+          
         </div>
         <div className="input-container">
           <input
@@ -56,11 +61,7 @@ function Login() {
         <div className="bottom-container">
           <div className="account-message">Don't have an account?</div>
           <div>
-            <button
-              className="redirect-button"
-              onClick={() => navigate("/signup")}
-              type="button"
-            >
+            <button className="redirect-button" onClick={() => navigate("/signup")} type="button">
               Signup
             </button>
           </div>

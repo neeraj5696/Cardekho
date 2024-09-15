@@ -1,8 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { MdMovie } from "react-icons/md";
-import { createUserWithEmailAndPassword } from "firebase/auth";
-import { auth } from "../../utils/firebase"; // Make sure your Firebase config is set up correctly
+import { FaCar } from "react-icons/fa6";
+import axios from "axios";
 import "../pages/auth.css";
 
 function Signup() {
@@ -19,10 +18,13 @@ function Signup() {
       return;
     }
     try {
-      await createUserWithEmailAndPassword(auth, email, password);
+      await axios.post("http://localhost:3000/api/auth/register", {
+        email,
+        password,
+      });
       setMessage("Registered successfully! Redirecting...");
       setTimeout(() => {
-        navigate("/dashboard");
+        navigate("/");
       }, 2000);
     } catch (error) {
       console.error("Error occurred", error);
@@ -35,7 +37,7 @@ function Signup() {
       <form onSubmit={handleRegister} className="form">
         {message && <div className="message">{message}</div>}
         <div className="movie-icon">
-          <MdMovie />
+        <FaCar />
         </div>
         <div className="input-container">
           <input

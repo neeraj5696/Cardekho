@@ -7,33 +7,29 @@ import { useNavigate } from "react-router-dom";
 import "../pages/CarListing.css";
 
 function CarCatalog() {
-  const [cars, setCars] = useState([]);
-  const [loading, setLoading] = useState(true);
-  const [error, setError] = useState(null);
+  const [cars, setCars] = useState([]); // State to store fetched cars
+  const [loading, setLoading] = useState(true); 
+  const [error, setError] = useState(null); 
   const [page, setPage] = useState(0); // State to track the current page
-  const dispatch = useDispatch(); // Redux dispatch
-  const navigate = useNavigate(); // React Router navigate
-  const cart = useSelector((state) => state.car.cart); // Get cart from Redux store
+  const dispatch = useDispatch(); 
+  const navigate = useNavigate(); 
+  const cart = useSelector((state) => state.car.cart); 
 
   useEffect(() => {
     const fetchCars = async () => {
       const options = {
         method: "GET",
-        url: "https://car-data.p.rapidapi.com/cars",
+        url: "http://localhost:3000/cars", // Pointing to the backend server
         params: {
-          limit: "20",
-          page: page.toString(), // Dynamic page
-        },
-        headers: {
-          "x-rapidapi-key": "5a9d7e4273msh022af9bb82c5702p149b2cjsnace467de972c",
-          "x-rapidapi-host": "car-data.p.rapidapi.com",
+          limit: 20, // Fetch 20 cars per request
+          page: page, // Current page number
         },
       };
 
       try {
         const response = await axios.request(options);
         setCars((prevCars) => [...prevCars, ...response.data]); // Append new data to the list
-        dispatch(setAllCars(response.data)); // Dispatch all car data to Redux store for search functionality
+        dispatch(setAllCars([...cars, ...response.data])); // Dispatch all car data to Redux store for search functionality
       } catch (error) {
         setError(error);
       } finally {
@@ -42,23 +38,23 @@ function CarCatalog() {
     };
 
     fetchCars();
-  }, [page, dispatch]); // Fetch data when page changes
+  }, [page, dispatch]); 
 
   const handleAddToCart = (carId) => {
     if (cart.includes(carId)) {
-      dispatch(removeFromCart(carId)); // Remove from cart
+      dispatch(removeFromCart(carId));
     } else {
-      dispatch(addToCart(carId)); // Add to cart
+      dispatch(addToCart(carId));
     }
   };
 
   const handleCarClick = (car) => {
-    dispatch(setSelectedCar(car)); // Dispatch action to set selected car
-    navigate(`/cars/${car.id}`); // Navigate to car details page
+    dispatch(setSelectedCar(car)); 
+    navigate(`/cars/${car.id}`); 
   };
 
   const handleSeeMore = () => {
-    setPage((prevPage) => prevPage + 1); // Increment page number
+    setPage((prevPage) => prevPage + 1); // Increment page number to fetch the next 20 cars
   };
 
   if (loading && page === 0) return <div>Loading...</div>;
@@ -72,13 +68,13 @@ function CarCatalog() {
           <div
             key={car.id}
             className={`catalog-item ${cart.includes(car.id) ? "in-cart" : ""}`}
-            onClick={() => handleCarClick(car)} // Handle car click
+            onClick={() => handleCarClick(car)} 
           >
             <div className="catalog-image">
               <button
                 className={`cart-btn ${cart.includes(car.id) ? "in-cart" : ""}`}
                 onClick={(e) => {
-                  e.stopPropagation(); // Prevent click from triggering car details
+                  e.stopPropagation(); 
                   handleAddToCart(car.id);
                 }}
               >
